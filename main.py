@@ -1,3 +1,16 @@
+# TIC-TAC-TERMINAL
+# An interactive, graphical, terminal tic-tac-toe written in Python
+#
+# > The `board` variable refers to a 9 character string that describes a board
+# state with `X`s `O`s and ` `(space)'s from top left to bottom right row-wise.
+# e.g. 'OX  OX X ' would be:
+#
+#   |O|X| |
+#   | |O|X|
+#   | |X| |
+#
+# > The `token` or `player` variable denotes either `X` or `O`.import os
+
 import os
 from texts import text
 
