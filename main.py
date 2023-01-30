@@ -83,9 +83,10 @@ def hvhloop():
     board = EMPTY_BOARD
     currentPlayer = 'X'
     while True:
-        if isOver(board):
-            # Don't like it, tsk tsk tsk TODO: like it
-            drawGameOver(board, isOver(board))
+        over = isOver(board)
+        # Don't like it, tsk tsk tsk TODO: like it
+        if over:
+            drawGameOver(board, over)
             break
         drawHeader()
         drawMakeMove(board, currentPlayer)
