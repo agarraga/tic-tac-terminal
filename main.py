@@ -29,7 +29,7 @@ def getPlayerMove(board: str, token: str) -> str:
 def drawBoard(board: str):
     boardDraw = text['setUpBoard']
     for i, cell in enumerate(board):
-        boardDraw = boardDraw.replace(str(i), cell)
+        boardDraw = boardDraw.replace(str(i), cell, 1)
     print(boardDraw)
 
 
