@@ -68,18 +68,14 @@ def isOver(board: str) -> int:
     candidates.append(board[0:9:4])
     candidates.append(board[2:7:2])
     # B&W footage voice-over: "There has to be a better way!"
-    for i, player in enumerate(['X', 'O']):
-        playerHasWon = False
-        if any(map(lambda candidate: candidate == 3 * player, candidates)):
-            playerHasWon = True
-        if playerHasWon:
-            if i == 0:
-                return 1
-            elif i == 1:
-                return 2
-    if ' ' not in board:
-        return 3
-    return 0
+    condition = 0
+    if any(map(lambda candidate: candidate == 'XXX', candidates)):
+        condition = 1
+    elif any(map(lambda candidate: candidate == 'OOO', candidates)):
+        condition = 2
+    elif ' ' not in board:
+        condition = 3
+    return condition
 
 
 def hvhloop():
