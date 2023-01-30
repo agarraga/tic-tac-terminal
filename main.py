@@ -26,7 +26,7 @@ def getPlayerMove(board: str, token: str) -> str:
     return board
 
 
-def drawBoard(board: str) -> str:
+def drawBoard(board: str):
     boardDraw = text['setUpBoard']
     for i, cell in enumerate(board):
         boardDraw = boardDraw.replace(str(i), cell)
@@ -44,15 +44,16 @@ def drawHeader():
 
 
 def drawGameOver(board: str, condition: int):
+    # 1 -> X won, 2 -> O won, 3 -> Draw
     drawHeader()
     drawBoard(board)
     if condition == 1:
         print('Great X!!! You\'re eXcelent!')
-    if condition == 2:
+    elif condition == 2:
         print('OMG O!!! You absolutley rOck!!')
-    if condition == 3:
+    elif condition == 3:
         print('EVERYBODY LOOSES! YEY! <3')
-    os.system('pause||read -p "Press any key to continue"')
+    input('Press Enter to continue')
 
 
 def isOver(board: str) -> int:
@@ -67,9 +68,10 @@ def isOver(board: str) -> int:
     candidates.append(board[0:9:4])
     candidates.append(board[2:7:2])
     # B&W footage voice-over: "There has to be a better way!"
-    print(candidates)
     for i, player in enumerate(['X', 'O']):
         playerHasWon = False
+        if any(map(lambda candidate: candidate == 3 * player, candidates)):
+            playerHasWon = True
         if playerHasWon:
             if i == 0:
                 return 1
