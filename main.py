@@ -68,6 +68,7 @@ def isOver(board: str) -> int:
     candidates.append(board[0:9:4])
     candidates.append(board[2:7:2])
     # B&W footage voice-over: "There has to be a better way!"
+    # TODO: Make lazier, i.e. make condition jump on first `True`.
     condition = 0
     if any(map(lambda candidate: candidate == 'XXX', candidates)):
         condition = 1
