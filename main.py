@@ -10,9 +10,10 @@
 #   | |X| |
 #
 # > The `token` or `player` variable denotes either `X` or `O`.import os
+# TODO: Create board and token types/classes.
 
-import os
 from texts import text
+from draw import draw_board, draw_header, draw_game_over, draw_get_human_move
 
 EMPTY_BOARD = 9 * ' '
 
@@ -37,35 +38,6 @@ def get_human_move(board: str, token: str) -> str:
         break
     board = board[:move] + token + board[move + 1:]
     return board
-
-
-def draw_board(board: str):
-    board_formatted = text['set-up-board']
-    for i, cell in enumerate(board):
-        board_formatted = board_formatted.replace(str(i), cell, 1)
-    print(board_formatted)
-
-
-def draw_get_human_move(board: str, token: str):
-    draw_board(board)
-    print(text['play-prompt'].format(token))
-
-
-def draw_header():
-    os.system('csl||clear')
-    print(text['title'])
-
-
-def draw_game_over(board: str, condition: int):
-    # 1 -> X won, 2 -> O won, 3 -> Draw
-    draw_header()
-    draw_board(board)
-    if condition == 1:
-        print('Great X!!! You\'re eXcelent!')
-    elif condition == 2:
-        print('OMG O!!! You absolutley rOck!!')
-    elif condition == 3:
-        print('EVERYBODY LOOSES! YEY! <3')
 
 
 def is_over(board: str) -> int:
