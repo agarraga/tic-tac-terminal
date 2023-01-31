@@ -17,7 +17,7 @@ from texts import text
 EMPTY_BOARD = 9 * ' '
 
 
-def getPlayerMove(board: str, token: str) -> str:
+def get_human_move(board: str, token: str) -> str:
     move = ''
     while True:
         move = input('Move: ')
@@ -39,37 +39,36 @@ def getPlayerMove(board: str, token: str) -> str:
     return board
 
 
-def drawBoard(board: str):
-    boardDraw = text['setUpBoard']
+def draw_board(board: str):
+    board_formatted = text['set-up-board']
     for i, cell in enumerate(board):
-        boardDraw = boardDraw.replace(str(i), cell, 1)
-    print(boardDraw)
+        board_formatted = board_formatted.replace(str(i), cell, 1)
+    print(board_formatted)
 
 
-def drawMakeMove(board: str, token: str):
-    drawBoard(board)
+def draw_get_human_move(board: str, token: str):
+    draw_board(board)
     print(text['play-prompt'].format(token))
 
 
-def drawHeader():
+def draw_header():
     os.system('csl||clear')
     print(text['title'])
 
 
-def drawGameOver(board: str, condition: int):
+def draw_game_over(board: str, condition: int):
     # 1 -> X won, 2 -> O won, 3 -> Draw
-    drawHeader()
-    drawBoard(board)
+    draw_header()
+    draw_board(board)
     if condition == 1:
         print('Great X!!! You\'re eXcelent!')
     elif condition == 2:
         print('OMG O!!! You absolutley rOck!!')
     elif condition == 3:
         print('EVERYBODY LOOSES! YEY! <3')
-    input('Press Enter to continue')
 
 
-def isOver(board: str) -> int:
+def is_over(board: str) -> int:
     # 0 -> Not over, 1 -> X won, 2 -> O won, 3 -> Draw
     candidates = []
     candidates.append(board[0:3])
@@ -92,41 +91,42 @@ def isOver(board: str) -> int:
     return condition
 
 
-def hvhloop():
+def hvh_loop():
     board = EMPTY_BOARD
-    currentPlayer = 'X'
+    current_player = 'X'
     while True:
-        over = isOver(board)
+        over = is_over(board)
         # Don't like it, tsk tsk tsk TODO: like it
         if over:
-            drawGameOver(board, over)
+            draw_game_over(board, over)
+            input('Press Enter to continue')
             break
-        drawHeader()
-        drawMakeMove(board, currentPlayer)
-        board = getPlayerMove(board, currentPlayer)
-        currentPlayer = 'X' if currentPlayer == 'O' else 'O'
+        draw_header()
+        draw_get_human_move(board, current_player)
+        board = get_human_move(board, current_player)
+        current_player = 'X' if current_player == 'O' else 'O'
 
 
-def hvcloop():
+def hvc_loop():
     pass
 
 
-def cvcloop():
+def cvc_loop():
     pass
 
 
 def main():
     while True:
-        drawHeader()
-        drawBoard('XOXOXOXOX')
+        draw_header()
+        draw_board('XOXOXOXOX')
         print(text['initial-menu'])
         selection = input('Make a selection: ')
         if selection == '1':
-            hvhloop()
+            hvh_loop()
         elif selection == '2':
-            hvcloop()
+            hvc_loop()
         elif selection == '3':
-            cvcloop()
+            cvc_loop()
         elif selection == 'q':
             break
         else:
