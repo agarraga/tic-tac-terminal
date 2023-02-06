@@ -10,12 +10,24 @@
 #   | |X| |
 #
 # > The `token` or `player` variable denotes either `X` or `O`.import os
-# TODO: Create board and token types/classes.
 
 from texts import text
 from draw import draw_board, draw_header, draw_game_over, draw_get_human_move
 
 EMPTY_BOARD = 9 * ' '
+
+
+def make_move(board: str, token: str, move: int) -> str:
+    if not 0 <= move <= 8:
+        raise ValueError('Must enter a number between 1 and 9 ;)')
+    if board[move] != ' ':
+        raise ValueError('Must select an empty cell >:')
+    if token == 'X' and board.count('X') > board.count('O'):
+        raise ValueError('It\'s Os turn! :O')
+    if token == 'O' and board.count('X') <= board.count('O'):
+        raise ValueError('It\'s Xs turn! XD')
+    board = board[:move] + token + board[move + 1:]
+    return board
 
 
 def get_human_move(board: str, token: str) -> str:
@@ -25,18 +37,15 @@ def get_human_move(board: str, token: str) -> str:
         if move == 'q':
             exit(0)
         if not move.isdigit():
-            print('Must enter a digit :_')
+            ('Must enter a digit :_')
             continue
-        move = int(move)
-        if not 1 <= move <= 9:
-            print('Must enter a number between 1 and 9 ;)')
+        move = int(move) - 1
+        try:
+            board = make_move(board, token, move)
+            break
+        except ValueError as ve:
+            print(ve)
             continue
-        move -= 1
-        if board[move] != ' ':
-            print('Must select an empty cell >:')
-            continue
-        break
-    board = board[:move] + token + board[move + 1:]
     return board
 
 
