@@ -27,5 +27,10 @@ text = {
   For human vs computer enter.....2
   For computer vs computer enter..3
   To exit enter...................q
+''',
+    'tiny-board': '''
+|0|1|2|
+|3|4|5|
+|6|7|8|
 '''
         }

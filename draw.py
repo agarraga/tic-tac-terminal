@@ -1,49 +1,37 @@
 # Here are all the functions that draw stuff on the terminal
-# they *should* not have returns. Only print()
+# they *should* not have returns, only print()
 
 import os
 from texts import text
+from state import State
 
 
-def draw_board(board: str):
-    '''Draw a pretty board.
-
-    Keyword arguments:
-    board -- 9 character string composed of [XO ]
-    '''
+def draw_board(state: State):
+    '''Draw a pretty board. '''
     board_formatted = text['set-up-board']
-    for i, cell in enumerate(board):
+    for i, cell in enumerate(state.board):
         board_formatted = board_formatted.replace(str(i), cell, 1)
     print(board_formatted)
 
 
 def draw_header():
-    '''Draw a pretty header'''
+    '''Clear the screen and draw a pretty header'''
     os.system('csl||clear')
     print(text['title'])
 
 
-def draw_get_human_move(board: str, token: str):
-    '''Prompt a human player to move.
-
-    Keyword arguments:
-    board -- 9 character string composed of [XO ]
-    token -- 'X' or 'O'
-    '''
+def draw_get_human_move(state: State):
+    '''Draw the prompt for a human player to move. '''
     draw_header()
-    draw_board(board)
-    print(text['play-prompt'].format(token))
+    draw_board(state)
+    print(text['play-prompt'].format(state.turn()))
 
 
-def draw_game_over(board: str, condition: int):
-    '''Draw the game over screen.
-
-    Keyword arguments:
-    board     -- 9 character string composed of [XO ]
-    condotion -- 1, 2, or 3 (X win, O win, or Draw)
-    '''
+def draw_game_over(state: State):
+    '''Draw the game over screen. '''
     draw_header()
-    draw_board(board)
+    draw_board(state)
+    condition = state.is_over()
     if condition == 1:
         print('Great X!!! You\'re eXcelent!')
     elif condition == 2:
